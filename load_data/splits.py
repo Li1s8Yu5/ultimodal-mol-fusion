@@ -1,17 +1,12 @@
 import random
-from copy import deepcopy
 
-import pandas as pd
 from rdkit import Chem
-from rdkit.Chem import Descriptors, rdMolDescriptors, AllChem, rdChemReactions
 from rdkit.Chem.Scaffolds import MurckoScaffold
 import numpy as np
 from scipy.stats import ks_2samp, entropy
-from sklearn.metrics.pairwise import rbf_kernel, cosine_similarity
-from sklearn.model_selection import train_test_split, GroupKFold, KFold, StratifiedShuffleSplit, StratifiedGroupKFold, \
-    StratifiedKFold
+from sklearn.metrics.pairwise import rbf_kernel
+from sklearn.model_selection import StratifiedKFold
 from collections import defaultdict
-from imblearn.over_sampling import SMOTE
 
 
 def evaluate_feature_independence(X_train, X_val, X_test, name="Feature", bandwidth=1.0):

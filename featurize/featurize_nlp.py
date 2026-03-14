@@ -7,7 +7,7 @@ from tqdm import tqdm
 from unimol_tools import UniMolRepr
 from gensim.models import word2vec
 from rdkit import Chem
-from mol2vec.features import MolSentence, sentences2vec, DfVec, mol2alt_sentence
+from mol2vec.features import sentences2vec,  mol2alt_sentence
 
 
 def featurize_with_chemberta(df, smiles_col="smiles", model_name="./model/ChemBERTa-zinc-base-v1", device="cuda"):
@@ -23,7 +23,7 @@ def featurize_with_chemberta(df, smiles_col="smiles", model_name="./model/ChemBE
         for smi in tqdm(df[smiles_col], desc="Featurizing with ChemBERTa"):
             tokens = tokenizer(smi, return_tensors="pt", truncation=True, padding=True).to(device)
             outputs = model(**tokens)
-            # [batch, seq, hidden]; 取 [CLS] token 表示
+
             cls_emb = outputs.last_hidden_state[:, 0, :].cpu().numpy()
             embeddings.append(cls_emb.squeeze())
 
