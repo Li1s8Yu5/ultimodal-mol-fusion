@@ -4,6 +4,9 @@
 an interpretable multimodal molecular representation fusion framework that integrates pretrained semantic representations
 of two-dimensional substructure distributions with three-dimensional geometric conformational representations for anxiolytic drug discovery.
 
+### Data Preparation
+Data for model is available in data/, dataset.csv is training dataset, test_dataset.csv is independent test dataset.
+
 ### Requirements
 - torch == 2.4.1
 - numpy == 1.24.4
