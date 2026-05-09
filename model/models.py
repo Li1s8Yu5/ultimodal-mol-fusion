@@ -3,9 +3,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-# ---------------------------
-# Base: two-tower projection
-# ---------------------------
 class TwoTowerProjector(nn.Module):
     """
     Projects embedding and fingerprint to the same hidden_dim.
@@ -23,10 +20,6 @@ class TwoTowerProjector(nn.Module):
 
 
 class LearnableScalarAttentionFusion(nn.Module):
-    """
-    标量可学习注意力：softmax([alpha, beta]) 决定两路权重
-    """
-
     def __init__(self, embedding1_dim, embedding2_dim, hidden_dim=256, dropout=0.1):
         super().__init__()
         self.projector = TwoTowerProjector(embedding1_dim, embedding2_dim, hidden_dim)
@@ -46,10 +39,6 @@ class LearnableScalarAttentionFusion(nn.Module):
         fused = self.dropout(self.norm(fused))
         return fused
 
-
-# ---------------------------
-# Classifier with selectable fusion
-# ---------------------------
 class FusionMLPClassifier(nn.Module):
     def __init__(self, embedding1_dim, embedding2_dim,
                  hidden_dim=256, mlp_hidden_dim=64, dropout=0.3,
