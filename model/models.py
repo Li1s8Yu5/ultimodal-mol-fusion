@@ -61,9 +61,9 @@ class FusionMLPClassifier(nn.Module):
             embedding1_dim, embedding2_dim, hidden_dim=hidden_dim, dropout=dropout
         )
 
-        # 可学习放缩 & 中心化参数（保留你的设计；center 你若不需要可删）
+        # 可学习放缩 & 中心化参数
         self.logit_scale = nn.Parameter(torch.tensor(1.0))
-        self.logit_center = nn.Parameter(torch.tensor(0.0))
+        self.logit_center = nn.Parameter(torch.tensor(0.5))
 
         self.mlp = nn.Sequential(
             nn.Linear(hidden_dim, mlp_hidden_dim),
@@ -79,5 +79,7 @@ class FusionMLPClassifier(nn.Module):
 
         scale = torch.clamp(self.logit_scale, 0.5, 5.0)
         logits = logits * scale
+
+        logits = logits + self.logit_center
 
         return logits
