@@ -18,5 +18,5 @@ Data for model is available in data/, dataset.csv is training dataset, test_data
 ### Usage
 Navigate to the directory containing the file, run the following command:
 
-    python training.py
+    python train.py
     
